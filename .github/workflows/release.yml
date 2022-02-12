@@ -1,0 +1,25 @@
+name: goreleaser
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  goreleaser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate Changelog
+        run: |
+          VERSION=$(.github/hack/version.sh)
+          .github/hack/changelog.sh $VERSION > NEW-VERSION-CHANGELOG.md
+
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: NEW-VERSION-CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
