@@ -66,6 +66,7 @@ func TestString(t *testing.T) {
 	}{
 		{UserAccount{Username: String("abc")}, `pinterest.UserAccount{Username:"abc"}`},
 		{AuthorizationAPP{ClientID: "client id", ClientSecret: "client secret"}, `pinterest.AuthorizationAPP{ClientID:"client id", ClientSecret:"client secret", RedirectURI:"", Scope:""}`},
+		{UserAccountAnalytics{All: &UserAccountAnalyticsMetrics{DailyMetrics: []*DailyMetrics{{DataStatus: String("READY"), Date: String("2022-02-10"), Metrics: &Metrics{Impression: Int64(3)}}}}}, `pinterest.UserAccountAnalytics{All:pinterest.UserAccountAnalyticsMetrics{DailyMetrics:[pinterest.DailyMetrics{DataStatus:"READY", Date:"2022-02-10", Metrics:pinterest.Metrics{Impression:3}}]}}`},
 	}
 
 	for i, tt := range tests {
