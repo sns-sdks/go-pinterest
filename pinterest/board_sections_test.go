@@ -13,7 +13,7 @@ func (bc *BCSuite) TestListBoardSections() {
 			`{"code":403,"message":"Not authorized to access the board."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.ListBoardSections(boardID, ListBoardSectionOpts{})
+	_, err := bc.Pin.BoardResource.ListBoardSections(boardID, ListOptions{})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -24,7 +24,7 @@ func (bc *BCSuite) TestListBoardSections() {
 		),
 	)
 
-	bs, _ := bc.Pin.BoardResource.ListBoardSections(boardID, ListBoardSectionOpts{})
+	bs, _ := bc.Pin.BoardResource.ListBoardSections(boardID, ListOptions{})
 	bc.Equal(*bs.Items[0].Name, "Night")
 	bc.Equal(*bs.Items[0].ID, "5215150022519213435")
 	bc.Nil(bs.Bookmark)

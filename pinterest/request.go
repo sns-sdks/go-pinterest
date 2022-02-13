@@ -9,8 +9,22 @@ import (
 
 // APIError represents the error response
 type APIError struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
+	Code         int    `json:"code"`
+	Message      string `json:"message"`
+	Status       string `json:"status,omitempty"`
+	Data         string `json:"data,omitempty"`
+	EndpointName string `json:"endpoint_name,omitempty"`
+}
+
+func (e APIError) String() string {
+	return Stringify(e)
+}
+
+// ListOptions specifies the optional parameters to various List methods that
+// support offset pagination.
+type ListOptions struct {
+	Bookmark string `url:"bookmark,omitempty"`
+	PageSize int    `url:"page_size,omitempty"`
 }
 
 /*

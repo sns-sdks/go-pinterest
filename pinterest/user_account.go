@@ -32,13 +32,13 @@ type userAccountOpts struct {
 
 // GetUserAccount Get account information for the user account
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/user_account/get
-func (r *UserAccountResource) GetUserAccount(AdAccountID string) (*UserAccount, *APIError) {
+func (r *UserAccountResource) GetUserAccount(adAccountID string) (*UserAccount, *APIError) {
 	path := "/user_account"
 
 	resp := new(UserAccount)
 	var err *APIError
-	if AdAccountID != "" {
-		params := userAccountOpts{AdAccountID: AdAccountID}
+	if adAccountID != "" {
+		params := userAccountOpts{AdAccountID: adAccountID}
 		err = r.Cli.DoGet(path, params, resp)
 	} else {
 		err = r.Cli.DoGet(path, nil, resp)

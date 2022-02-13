@@ -20,14 +20,9 @@ func (b BoardSectionsResponse) String() string {
 	return Stringify(b)
 }
 
-type ListBoardSectionOpts struct {
-	Bookmark string `url:"bookmark,omitempty"`
-	PageSize int    `url:"page_size,omitempty"`
-}
-
 // ListBoardSections Get a list of all board sections from a board owned by the "operation user_account" - or a group board that has been shared with this account.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/board_sections/list
-func (r *BoardResource) ListBoardSections(boardID string, args ListBoardSectionOpts) (*BoardSectionsResponse, *APIError) {
+func (r *BoardResource) ListBoardSections(boardID string, args ListOptions) (*BoardSectionsResponse, *APIError) {
 	path := "/boards/" + boardID + "/sections"
 
 	resp := new(BoardSectionsResponse)
@@ -79,4 +74,17 @@ func (r *BoardResource) DeleteBoardSection(boardID, sectionID string) *APIError 
 		return err
 	}
 	return nil
+}
+
+// ListPinsOnBoardSection Get a list of the Pins on a board section of a board owned by the "operation user_account" - or on a group board that has been shared with this account.
+// Refer: https://developers.pinterest.com/docs/api/v5/#operation/board_sections/list_pins
+func (r *BoardResource) ListPinsOnBoardSection(boardID, sectionID string, args ListOptions) (*PinsResponse, *APIError) {
+	path := "/boards/" + boardID + "/sections/" + sectionID + "/pins"
+
+	resp := new(PinsResponse)
+	err := r.Cli.DoGet(path, args, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
