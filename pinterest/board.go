@@ -43,6 +43,7 @@ func (b BoardsResponse) String() string {
 	return Stringify(b)
 }
 
+// ListBoardOpts represents the parameters for list boards
 type ListBoardOpts struct {
 	Bookmark string `url:"bookmark,omitempty"`
 	PageSize int    `url:"page_size,omitempty"`
@@ -75,6 +76,7 @@ func (r *BoardResource) GetBoard(id string) (*Board, *APIError) {
 	return resp, nil
 }
 
+// CreateBoardOpts represents the parameters for create a board
 type CreateBoardOpts struct {
 	Name        string `json:"name"`
 	Description string `json:"description,omitempty"`
@@ -93,6 +95,7 @@ func (r *BoardResource) CreateBoard(args CreateBoardOpts) (*Board, *APIError) {
 	return resp, nil
 }
 
+// UpdateBoardOpts represents the parameters for update board
 type UpdateBoardOpts struct {
 	Name        string `json:"name,omitempty"`
 	Description string `json:"description,omitempty"`
