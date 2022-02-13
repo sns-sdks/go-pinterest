@@ -9,7 +9,7 @@ const (
 	Baseurl    = "https://api.pinterest.com/v5"
 	HttpGet    = resty.MethodGet
 	HttpPost   = resty.MethodPost
-	HttpPut    = resty.MethodPut
+	HttpPatch  = resty.MethodPatch
 	HttpDelete = resty.MethodDelete
 
 	OAuthState = "go-pinterest"
@@ -18,7 +18,8 @@ const (
 type Client struct {
 	Cli *resty.Client
 	// API Resource
-	UserAccount *UserAccountResource
+	UserAccount   *UserAccountResource
+	BoardResource *BoardResource
 }
 
 type Resource struct {
@@ -30,6 +31,7 @@ func NewClient(client *resty.Client) *Client {
 
 	// Register data resource
 	c.UserAccount = newUserAccountResource(c)
+	c.BoardResource = newBoardResource(c)
 	return c
 }
 

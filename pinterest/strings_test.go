@@ -70,6 +70,11 @@ func TestString(t *testing.T) {
 		{DailyMetrics{DataStatus: String("READY"), Date: String("2022-02-10"), Metrics: &Metrics{Impression: Int64(3)}}, `pinterest.DailyMetrics{DataStatus:"READY", Date:"2022-02-10", Metrics:pinterest.Metrics{Impression:3}}`},
 		{UserAccountAnalyticsMetrics{DailyMetrics: []*DailyMetrics{{DataStatus: String("READY"), Date: String("2022-02-10"), Metrics: &Metrics{Impression: Int64(3)}}}}, `pinterest.UserAccountAnalyticsMetrics{DailyMetrics:[pinterest.DailyMetrics{DataStatus:"READY", Date:"2022-02-10", Metrics:pinterest.Metrics{Impression:3}}]}`},
 		{UserAccountAnalytics{All: &UserAccountAnalyticsMetrics{DailyMetrics: []*DailyMetrics{{DataStatus: String("READY"), Date: String("2022-02-10"), Metrics: &Metrics{Impression: Int64(3)}}}}}, `pinterest.UserAccountAnalytics{All:pinterest.UserAccountAnalyticsMetrics{DailyMetrics:[pinterest.DailyMetrics{DataStatus:"READY", Date:"2022-02-10", Metrics:pinterest.Metrics{Impression:3}}]}}`},
+		{BoardOwner{Username: String("merleliukun")}, `pinterest.BoardOwner{Username:"merleliukun"}`},
+		{Board{ID: String("1022106146619699845"), Name: String("City"), Description: String(""), Owner: &BoardOwner{Username: String("merleliukun")}, Privacy: String("PUBLIC")}, `pinterest.Board{ID:"1022106146619699845", Name:"City", Description:"", Owner:pinterest.BoardOwner{Username:"merleliukun"}, Privacy:"PUBLIC"}`},
+		{BoardsResponse{Items: []*Board{{ID: String("1022106146619699845"), Name: String("City")}}}, `pinterest.BoardsResponse{Items:[pinterest.Board{ID:"1022106146619699845", Name:"City"}]}`},
+		{BoardSection{ID: String("5215175925383086784"), Name: String("Day")}, `pinterest.BoardSection{ID:"5215175925383086784", Name:"Day"}`},
+		{BoardSectionsResponse{Items: []*BoardSection{{ID: String("5215175925383086784"), Name: String("Day")}}}, `pinterest.BoardSectionsResponse{Items:[pinterest.BoardSection{ID:"5215175925383086784", Name:"Day"}]}`},
 	}
 
 	for i, tt := range tests {

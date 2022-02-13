@@ -79,8 +79,8 @@ func (r *Client) DoPost(path string, jsonParams interface{}, d interface{}) *API
 	return r.Do(HttpPost, path, nil, jsonParams, d)
 }
 
-func (r *Client) DoPut(path string, jsonParams interface{}, d interface{}) *APIError {
-	return r.Do(HttpPut, path, nil, jsonParams, d)
+func (r *Client) DoPatch(path string, jsonParams interface{}, d interface{}) *APIError {
+	return r.Do(HttpPatch, path, nil, jsonParams, d)
 }
 
 func (r *Client) DoDelete(path string, d interface{}) *APIError {
