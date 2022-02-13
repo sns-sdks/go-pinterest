@@ -73,6 +73,8 @@ func TestString(t *testing.T) {
 		{BoardOwner{Username: String("merleliukun")}, `pinterest.BoardOwner{Username:"merleliukun"}`},
 		{Board{ID: String("1022106146619699845"), Name: String("City"), Description: String(""), Owner: &BoardOwner{Username: String("merleliukun")}, Privacy: String("PUBLIC")}, `pinterest.Board{ID:"1022106146619699845", Name:"City", Description:"", Owner:pinterest.BoardOwner{Username:"merleliukun"}, Privacy:"PUBLIC"}`},
 		{BoardsResponse{Items: []*Board{{ID: String("1022106146619699845"), Name: String("City")}}}, `pinterest.BoardsResponse{Items:[pinterest.Board{ID:"1022106146619699845", Name:"City"}]}`},
+		{BoardSection{ID: String("5215175925383086784"), Name: String("Day")}, `pinterest.BoardSection{ID:"5215175925383086784", Name:"Day"}`},
+		{BoardSectionsResponse{Items: []*BoardSection{{ID: String("5215175925383086784"), Name: String("Day")}}}, `pinterest.BoardSectionsResponse{Items:[pinterest.BoardSection{ID:"5215175925383086784", Name:"Day"}]}`},
 	}
 
 	for i, tt := range tests {
