@@ -65,8 +65,8 @@ func (r *BoardResource) ListBoards(args ListBoardOpts) (*BoardsResponse, *APIErr
 
 // GetBoard Get a board owned by the operation user_account - or a group board that has been shared with this account.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards/get
-func (r *BoardResource) GetBoard(id string) (*Board, *APIError) {
-	path := "/boards/" + id
+func (r *BoardResource) GetBoard(boardID string) (*Board, *APIError) {
+	path := "/boards/" + boardID
 
 	resp := new(Board)
 	err := r.Cli.DoGet(path, nil, resp)
@@ -104,8 +104,8 @@ type UpdateBoardOpts struct {
 
 // UpdateBoard Update a board owned by the "operating user_account".
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards/update
-func (r *BoardResource) UpdateBoard(id string, args UpdateBoardOpts) (*Board, *APIError) {
-	path := "/boards/" + id
+func (r *BoardResource) UpdateBoard(boardID string, args UpdateBoardOpts) (*Board, *APIError) {
+	path := "/boards/" + boardID
 	resp := new(Board)
 	err := r.Cli.DoPatch(path, args, resp)
 	if err != nil {
@@ -116,8 +116,8 @@ func (r *BoardResource) UpdateBoard(id string, args UpdateBoardOpts) (*Board, *A
 
 // DeleteBoard Delete a board owned by the "operation user_account".
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards/delete
-func (r *BoardResource) DeleteBoard(id string) *APIError {
-	path := "/boards/" + id
+func (r *BoardResource) DeleteBoard(boardID string) *APIError {
+	path := "/boards/" + boardID
 
 	err := r.Cli.DoDelete(path, nil)
 	if err != nil {
