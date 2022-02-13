@@ -2,6 +2,8 @@ package pinterest
 
 import (
 	"github.com/jarcoal/httpmock"
+	"github.com/stretchr/testify/suite"
+	"testing"
 )
 
 func (bc *BCSuite) TestGetUserAccount() {
@@ -29,4 +31,8 @@ func (bc *BCSuite) TestGetUserAccount() {
 	user, _ = bc.Pin.UserAccount.GetUserAccount("123456")
 	bc.Equal(*user.AccountType, "BUSINESS")
 	bc.Equal(*user.Username, "kun")
+}
+
+func TestBCSuite(t *testing.T) {
+	suite.Run(t, new(BCSuite))
 }

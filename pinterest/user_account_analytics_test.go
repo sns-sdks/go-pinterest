@@ -24,7 +24,7 @@ func (bc *BCSuite) TestGetUserAccountAnalytics() {
 	)
 
 	analytics, _ := bc.Pin.UserAccount.GetUserAccountAnalytics(UserAccountAnalyticsOpts{StartDate: "2022-02-10", EndDate: "2022-02-10"})
-	bc.Equal(*analytics.All.SummaryMetrics.Impression, 3)
+	bc.Equal(*analytics.All.SummaryMetrics.Impression, *Int64(3))
 	bc.Equal(*analytics.All.DailyMetrics[0].Date, "2022-02-10")
 	bc.Equal(*analytics.All.DailyMetrics[0].Metrics.SaveRate, 0.0)
 }
