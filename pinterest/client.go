@@ -9,7 +9,7 @@ const (
 	Baseurl    = "https://api.pinterest.com/v5"
 	HttpGet    = resty.MethodGet
 	HttpPost   = resty.MethodPost
-	HttpPut    = resty.MethodPut
+	HttpPatch  = resty.MethodPatch
 	HttpDelete = resty.MethodDelete
 
 	OAuthState = "go-pinterest"
