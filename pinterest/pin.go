@@ -19,7 +19,7 @@ type Image struct {
 
 // Media represents the media info
 type Media struct {
-	Images    *map[string]Image `json:"images"`
+	Images    map[string]*Image `json:"images"`
 	MediaType *string           `json:"media_type"`
 }
 
@@ -34,6 +34,7 @@ type Pin struct {
 	BoardID        *string     `json:"board_id"`
 	BoardSectionID *string     `json:"board_section_id"`
 	BoardOwner     *BoardOwner `json:"board_owner"`
+	Media          *Media      `json:"media"`
 }
 
 // PinsResponse represents the response for list pins
@@ -45,21 +46,21 @@ type PinsResponse struct {
 // CreatePinMediaSourceOpts represents the parameters for pin media resource
 type CreatePinMediaSourceOpts struct {
 	SourceType    string `json:"source_type"`
-	ContentType   string `json:"content_type"`
-	Data          string `json:"data,omitempty"`
-	Url           string `json:"url"`
-	CoverImageURL string `json:"cover_image_url"`
-	MediaID       string `json:"media_id"`
+	ContentType   string `json:"content_type,omitempty"`
+	Data          string `json:"data,omitempty,omitempty"`
+	Url           string `json:"url,omitempty"`
+	CoverImageURL string `json:"cover_image_url,omitempty"`
+	MediaID       string `json:"media_id,omitempty"`
 }
 
 // CreatePinOpts represents the parameters for create a pin
 type CreatePinOpts struct {
-	Link           string                   `json:"link"`
-	Title          string                   `json:"title"`
-	Description    string                   `json:"description"`
-	AltText        string                   `json:"alt_text"`
+	Link           string                   `json:"link,omitempty"`
+	Title          string                   `json:"title,omitempty"`
+	Description    string                   `json:"description,omitempty"`
+	AltText        string                   `json:"alt_text,omitempty"`
 	BoardID        string                   `json:"board_id"`
-	BoardSectionID string                   `json:"board_section_id"`
+	BoardSectionID string                   `json:"board_section_id,omitempty"`
 	MediaSource    CreatePinMediaSourceOpts `json:"media_source"`
 }
 

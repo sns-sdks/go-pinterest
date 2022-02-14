@@ -128,7 +128,7 @@ func (r *BoardResource) DeleteBoard(boardID string) *APIError {
 
 // ListPinsOnBoard Get a list of the Pins on a board owned by the "operation user_account" - or on a group board that has been shared with this account.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards/list_pins
-func (r *BoardResource) ListPinsOnBoard(boardID string, args ListBoardOpts) (*PinsResponse, *APIError) {
+func (r *BoardResource) ListPinsOnBoard(boardID string, args ListOptions) (*PinsResponse, *APIError) {
 	path := "/boards/" + boardID + "/pins"
 
 	resp := new(PinsResponse)

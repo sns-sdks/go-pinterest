@@ -64,6 +64,7 @@ func TestString(t *testing.T) {
 		in  interface{}
 		out string
 	}{
+		{APIError{Code: 404, Message: "Pin not found."}, `pinterest.APIError{Code:404, Message:"Pin not found.", Status:"", Data:"", EndpointName:""}`},
 		{UserAccount{Username: String("abc")}, `pinterest.UserAccount{Username:"abc"}`},
 		{AuthorizationAPP{ClientID: "client id", ClientSecret: "client secret"}, `pinterest.AuthorizationAPP{ClientID:"client id", ClientSecret:"client secret", RedirectURI:"", Scope:""}`},
 		{Metrics{Impression: Int64(3)}, `pinterest.Metrics{Impression:3}`},

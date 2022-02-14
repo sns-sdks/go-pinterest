@@ -2,6 +2,7 @@ package pinterest
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/go-resty/resty/v2"
 	goquery "github.com/google/go-querystring/query"
 	"strings"
@@ -14,6 +15,10 @@ type APIError struct {
 	Status       string `json:"status,omitempty"`
 	Data         string `json:"data,omitempty"`
 	EndpointName string `json:"endpoint_name,omitempty"`
+}
+
+func (e APIError) Error() string {
+	return fmt.Sprintf("Pinterest Error, Code: %d Message: %s", e.Code, e.Message)
 }
 
 func (e APIError) String() string {
