@@ -20,6 +20,7 @@ type Client struct {
 	// API Resource
 	UserAccount   *UserAccountResource
 	BoardResource *BoardResource
+	PinResource   *PinResource
 }
 
 type Resource struct {
@@ -32,6 +33,7 @@ func NewClient(client *resty.Client) *Client {
 	// Register data resource
 	c.UserAccount = newUserAccountResource(c)
 	c.BoardResource = newBoardResource(c)
+	c.PinResource = newPinResource(c)
 	return c
 }
 

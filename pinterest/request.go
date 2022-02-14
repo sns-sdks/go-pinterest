@@ -2,6 +2,7 @@ package pinterest
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/go-resty/resty/v2"
 	goquery "github.com/google/go-querystring/query"
 	"strings"
@@ -9,8 +10,26 @@ import (
 
 // APIError represents the error response
 type APIError struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
+	Code         int    `json:"code"`
+	Message      string `json:"message"`
+	Status       string `json:"status,omitempty"`
+	Data         string `json:"data,omitempty"`
+	EndpointName string `json:"endpoint_name,omitempty"`
+}
+
+func (e APIError) Error() string {
+	return fmt.Sprintf("Pinterest Error, Code: %d Message: %s", e.Code, e.Message)
+}
+
+func (e APIError) String() string {
+	return Stringify(e)
+}
+
+// ListOptions specifies the optional parameters to various List methods that
+// support offset pagination.
+type ListOptions struct {
+	Bookmark string `url:"bookmark,omitempty"`
+	PageSize int    `url:"page_size,omitempty"`
 }
 
 /*

@@ -45,9 +45,8 @@ func (b BoardsResponse) String() string {
 
 // ListBoardOpts represents the parameters for list boards
 type ListBoardOpts struct {
-	Bookmark string `url:"bookmark,omitempty"`
-	PageSize int    `url:"page_size,omitempty"`
-	Privacy  string `url:"privacy,omitempty"`
+	ListOptions
+	Privacy string `url:"privacy,omitempty"`
 }
 
 // ListBoards Get a list of the boards owned by the "operation user_account" + group boards where this account is a collaborator
@@ -87,6 +86,7 @@ type CreateBoardOpts struct {
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards/create
 func (r *BoardResource) CreateBoard(args CreateBoardOpts) (*Board, *APIError) {
 	path := "/boards"
+
 	resp := new(Board)
 	err := r.Cli.DoPost(path, args, resp)
 	if err != nil {
@@ -124,4 +124,17 @@ func (r *BoardResource) DeleteBoard(boardID string) *APIError {
 		return err
 	}
 	return nil
+}
+
+// ListPinsOnBoard Get a list of the Pins on a board owned by the "operation user_account" - or on a group board that has been shared with this account.
+// Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards/list_pins
+func (r *BoardResource) ListPinsOnBoard(boardID string, args ListOptions) (*PinsResponse, *APIError) {
+	path := "/boards/" + boardID + "/pins"
+
+	resp := new(PinsResponse)
+	err := r.Cli.DoGet(path, args, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }

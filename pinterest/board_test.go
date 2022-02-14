@@ -99,6 +99,7 @@ func (bc *BCSuite) TestUpdateBoard() {
 	bc.Equal(*board.Description, "Board will be delete")
 	bc.Equal(*board.ID, boardID)
 }
+
 func (bc *BCSuite) TestDeleteBoard() {
 	boardID := "1022106146619729163"
 	httpmock.RegisterResponder(
@@ -121,4 +122,29 @@ func (bc *BCSuite) TestDeleteBoard() {
 
 	err = bc.Pin.BoardResource.DeleteBoard(boardID)
 	bc.Nil(err)
+}
+
+func (bc *BCSuite) TestListPinsOnBoard() {
+	boardID := "1022106146619729163"
+	httpmock.RegisterResponder(
+		HttpGet, Baseurl+"/boards/"+boardID+"/pins",
+		httpmock.NewStringResponder(
+			404,
+			`{"code":404,"message":"Board not found."}`,
+		),
+	)
+	_, err := bc.Pin.BoardResource.ListPinsOnBoard(boardID, ListOptions{})
+	bc.IsType(&APIError{}, err)
+
+	httpmock.RegisterResponder(
+		HttpGet, Baseurl+"/boards/"+boardID+"/pins",
+		httpmock.NewStringResponder(
+			200,
+			`{"items":[{"title":"","board_id":"1022106146619699845","id":"1022106077902810180","media":{"media_type":"image","images":{"150x150":{"width":150,"height":150,"url":"https://i.pinimg.com/150x150/39/90/d9/3990d935052091b45865fb001609b97e.jpg"},"400x300":{"width":400,"height":300,"url":"https://i.pinimg.com/400x300/39/90/d9/3990d935052091b45865fb001609b97e.jpg"},"600x":{"width":600,"height":893,"url":"https://i.pinimg.com/600x/39/90/d9/3990d935052091b45865fb001609b97e.jpg"},"1200x":{"width":1200,"height":1786,"url":"https://i.pinimg.com/1200x/39/90/d9/3990d935052091b45865fb001609b97e.jpg"},"originals":{"width":1920,"height":2858,"url":"https://i.pinimg.com/originals/39/90/d9/3990d935052091b45865fb001609b97e.jpg"}}},"board_section_id":null,"description":" ","board_owner":{"username":"merleliukun"},"alt_text":null,"link":null,"created_at":"2022-02-14T02:54:38"}],"bookmark":null}`,
+		),
+	)
+
+	boards, _ := bc.Pin.BoardResource.ListPinsOnBoard(boardID, ListOptions{})
+	bc.Equal(*boards.Items[0].ID, "1022106077902810180")
+	bc.Nil(boards.Bookmark)
 }
