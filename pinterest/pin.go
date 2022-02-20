@@ -23,6 +23,10 @@ type Media struct {
 	MediaType *string           `json:"media_type"`
 }
 
+func (m Media) String() string {
+	return Stringify(m)
+}
+
 // Pin represents the pin info.
 type Pin struct {
 	ID             *string     `json:"id"`
@@ -37,10 +41,18 @@ type Pin struct {
 	Media          *Media      `json:"media"`
 }
 
+func (p Pin) String() string {
+	return Stringify(p)
+}
+
 // PinsResponse represents the response for list pins
 type PinsResponse struct {
 	Items    []*Pin  `json:"items"`
 	Bookmark *string `json:"bookmark"`
+}
+
+func (p PinsResponse) String() string {
+	return Stringify(p)
 }
 
 // CreatePinMediaSourceOpts represents the parameters for pin media resource
