@@ -10,6 +10,27 @@ func newMediaResource(cli *Client) *MediaResource {
 	return &MediaResource{Cli: cli}
 }
 
+// Image represents the image info
+type Image struct {
+	Width  *int    `json:"width"`
+	Height *int    `json:"height"`
+	Url    *string `json:"url"`
+}
+
+func (m Image) String() string {
+	return Stringify(m)
+}
+
+// Media represents the media info
+type Media struct {
+	Images    map[string]*Image `json:"images"`
+	MediaType *string           `json:"media_type"`
+}
+
+func (m Media) String() string {
+	return Stringify(m)
+}
+
 // MediaUpload represents the media upload info.
 type MediaUpload struct {
 	MediaID   *string `json:"media_id"`
