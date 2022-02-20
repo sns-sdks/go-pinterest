@@ -10,7 +10,7 @@ func (bc *BCSuite) TestCreatePin() {
 			`{"code":400,"message":"Pin is not a call-to-create response"}`,
 		),
 	)
-	_, err := bc.Pin.PinResource.CreatePin(CreatePinOpts{BoardID: "123456", MediaSource: CreatePinMediaSourceOpts{SourceType: "image_url", Url: "https://xxx.com/image.png"}})
+	_, err := bc.Pin.Pin.CreatePin(CreatePinOpts{BoardID: "123456", MediaSource: CreatePinMediaSourceOpts{SourceType: "image_url", Url: "https://xxx.com/image.png"}})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -21,7 +21,7 @@ func (bc *BCSuite) TestCreatePin() {
 		),
 	)
 
-	pin, _ := bc.Pin.PinResource.CreatePin(CreatePinOpts{BoardID: "123456", MediaSource: CreatePinMediaSourceOpts{SourceType: "image_url", Url: "https://xxx.com/image.png"}})
+	pin, _ := bc.Pin.Pin.CreatePin(CreatePinOpts{BoardID: "123456", MediaSource: CreatePinMediaSourceOpts{SourceType: "image_url", Url: "https://xxx.com/image.png"}})
 	bc.Equal(*pin.BoardID, "1022106146619699845")
 	bc.Equal(*pin.Media.MediaType, "image")
 	bc.Equal(*pin.Media.Images["150x150"].Width, 150)
@@ -36,7 +36,7 @@ func (bc *BCSuite) TestGetPin() {
 			`{"code":404,"message":"Pin not found."}`,
 		),
 	)
-	_, err := bc.Pin.PinResource.GetPin(pinID, "")
+	_, err := bc.Pin.Pin.GetPin(pinID, "")
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -47,11 +47,11 @@ func (bc *BCSuite) TestGetPin() {
 		),
 	)
 
-	pin, _ := bc.Pin.PinResource.GetPin(pinID, "")
+	pin, _ := bc.Pin.Pin.GetPin(pinID, "")
 	bc.Equal(*pin.BoardID, "1022106146619699845")
 	bc.Equal(*pin.Media.MediaType, "image")
 
-	pin, _ = bc.Pin.PinResource.GetPin(pinID, "123456")
+	pin, _ = bc.Pin.Pin.GetPin(pinID, "123456")
 	bc.Equal(*pin.BoardID, "1022106146619699845")
 
 }
@@ -65,7 +65,7 @@ func (bc *BCSuite) TestDeletePin() {
 			`{"code":404,"message":"Board not found."}`,
 		),
 	)
-	err := bc.Pin.PinResource.DeletePin(pinID)
+	err := bc.Pin.Pin.DeletePin(pinID)
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -76,6 +76,6 @@ func (bc *BCSuite) TestDeletePin() {
 		),
 	)
 
-	err = bc.Pin.PinResource.DeletePin(pinID)
+	err = bc.Pin.Pin.DeletePin(pinID)
 	bc.Nil(err)
 }

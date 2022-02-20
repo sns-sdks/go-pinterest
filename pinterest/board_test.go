@@ -10,7 +10,7 @@ func (bc *BCSuite) TestListBoards() {
 			`{"code":403,"message":"Not authorized to access the user account."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.ListBoards(ListBoardOpts{})
+	_, err := bc.Pin.Board.ListBoards(ListBoardOpts{})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -21,7 +21,7 @@ func (bc *BCSuite) TestListBoards() {
 		),
 	)
 
-	boards, _ := bc.Pin.BoardResource.ListBoards(ListBoardOpts{})
+	boards, _ := bc.Pin.Board.ListBoards(ListBoardOpts{})
 	bc.Equal(*boards.Items[0].Privacy, "PUBLIC")
 	bc.Nil(boards.Bookmark)
 }
@@ -35,7 +35,7 @@ func (bc *BCSuite) TestGetBoard() {
 			`{"code":404,"message":"Board not found."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.GetBoard(boardID)
+	_, err := bc.Pin.Board.GetBoard(boardID)
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -46,7 +46,7 @@ func (bc *BCSuite) TestGetBoard() {
 		),
 	)
 
-	board, _ := bc.Pin.BoardResource.GetBoard(boardID)
+	board, _ := bc.Pin.Board.GetBoard(boardID)
 	bc.Equal(*board.Privacy, "PUBLIC")
 	bc.Equal(*board.ID, boardID)
 }
@@ -59,7 +59,7 @@ func (bc *BCSuite) TestCreateBoard() {
 			`{"code":400,"message":"The board name is invalid or duplicated."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.CreateBoard(CreateBoardOpts{Name: "To be delete"})
+	_, err := bc.Pin.Board.CreateBoard(CreateBoardOpts{Name: "To be delete"})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -70,7 +70,7 @@ func (bc *BCSuite) TestCreateBoard() {
 		),
 	)
 
-	board, _ := bc.Pin.BoardResource.CreateBoard(CreateBoardOpts{Name: "ToBeDelete"})
+	board, _ := bc.Pin.Board.CreateBoard(CreateBoardOpts{Name: "ToBeDelete"})
 	bc.Equal(*board.Name, "ToBeDelete")
 	bc.Equal(*board.ID, "1022106146619729163")
 }
@@ -84,7 +84,7 @@ func (bc *BCSuite) TestUpdateBoard() {
 			`{"code":404,"message":"Board not found."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.UpdateBoard(boardID, UpdateBoardOpts{Description: "Board will be delete"})
+	_, err := bc.Pin.Board.UpdateBoard(boardID, UpdateBoardOpts{Description: "Board will be delete"})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -95,7 +95,7 @@ func (bc *BCSuite) TestUpdateBoard() {
 		),
 	)
 
-	board, _ := bc.Pin.BoardResource.UpdateBoard(boardID, UpdateBoardOpts{Description: "Board will be delete"})
+	board, _ := bc.Pin.Board.UpdateBoard(boardID, UpdateBoardOpts{Description: "Board will be delete"})
 	bc.Equal(*board.Description, "Board will be delete")
 	bc.Equal(*board.ID, boardID)
 }
@@ -109,7 +109,7 @@ func (bc *BCSuite) TestDeleteBoard() {
 			`{"code":404,"message":"Board not found."}`,
 		),
 	)
-	err := bc.Pin.BoardResource.DeleteBoard(boardID)
+	err := bc.Pin.Board.DeleteBoard(boardID)
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -120,7 +120,7 @@ func (bc *BCSuite) TestDeleteBoard() {
 		),
 	)
 
-	err = bc.Pin.BoardResource.DeleteBoard(boardID)
+	err = bc.Pin.Board.DeleteBoard(boardID)
 	bc.Nil(err)
 }
 
@@ -133,7 +133,7 @@ func (bc *BCSuite) TestListPinsOnBoard() {
 			`{"code":404,"message":"Board not found."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.ListPinsOnBoard(boardID, ListOptions{})
+	_, err := bc.Pin.Board.ListPinsOnBoard(boardID, ListOptions{})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -144,7 +144,7 @@ func (bc *BCSuite) TestListPinsOnBoard() {
 		),
 	)
 
-	boards, _ := bc.Pin.BoardResource.ListPinsOnBoard(boardID, ListOptions{})
+	boards, _ := bc.Pin.Board.ListPinsOnBoard(boardID, ListOptions{})
 	bc.Equal(*boards.Items[0].ID, "1022106077902810180")
 	bc.Nil(boards.Bookmark)
 }

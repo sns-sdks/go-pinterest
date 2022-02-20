@@ -18,9 +18,10 @@ const (
 type Client struct {
 	Cli *resty.Client
 	// API Resource
-	UserAccount   *UserAccountResource
-	BoardResource *BoardResource
-	PinResource   *PinResource
+	UserAccount *UserAccountResource
+	Board       *BoardResource
+	Pin         *PinResource
+	Media       *MediaResource
 }
 
 type Resource struct {
@@ -32,8 +33,9 @@ func NewClient(client *resty.Client) *Client {
 
 	// Register data resource
 	c.UserAccount = newUserAccountResource(c)
-	c.BoardResource = newBoardResource(c)
-	c.PinResource = newPinResource(c)
+	c.Board = newBoardResource(c)
+	c.Pin = newPinResource(c)
+	c.Media = newMediaResource(c)
 	return c
 }
 

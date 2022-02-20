@@ -10,19 +10,6 @@ func newPinResource(cli *Client) *PinResource {
 	return &PinResource{Cli: cli}
 }
 
-// Image represents the image info
-type Image struct {
-	Width  *int    `json:"width"`
-	Height *int    `json:"height"`
-	Url    *string `json:"url"`
-}
-
-// Media represents the media info
-type Media struct {
-	Images    map[string]*Image `json:"images"`
-	MediaType *string           `json:"media_type"`
-}
-
 // Pin represents the pin info.
 type Pin struct {
 	ID             *string     `json:"id"`
@@ -37,10 +24,18 @@ type Pin struct {
 	Media          *Media      `json:"media"`
 }
 
+func (p Pin) String() string {
+	return Stringify(p)
+}
+
 // PinsResponse represents the response for list pins
 type PinsResponse struct {
 	Items    []*Pin  `json:"items"`
 	Bookmark *string `json:"bookmark"`
+}
+
+func (p PinsResponse) String() string {
+	return Stringify(p)
 }
 
 // CreatePinMediaSourceOpts represents the parameters for pin media resource
