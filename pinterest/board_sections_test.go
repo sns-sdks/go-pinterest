@@ -13,7 +13,7 @@ func (bc *BCSuite) TestListBoardSections() {
 			`{"code":403,"message":"Not authorized to access the board."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.ListBoardSections(boardID, ListOptions{})
+	_, err := bc.Pin.Board.ListBoardSections(boardID, ListOptions{})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -24,7 +24,7 @@ func (bc *BCSuite) TestListBoardSections() {
 		),
 	)
 
-	bs, _ := bc.Pin.BoardResource.ListBoardSections(boardID, ListOptions{})
+	bs, _ := bc.Pin.Board.ListBoardSections(boardID, ListOptions{})
 	bc.Equal(*bs.Items[0].Name, "Night")
 	bc.Equal(*bs.Items[0].ID, "5215150022519213435")
 	bc.Nil(bs.Bookmark)
@@ -39,7 +39,7 @@ func (bc *BCSuite) TestCreateBoardSection() {
 			`{"code":400,"message":"Invalid board section parameters."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.CreateBoardSection(boardID, CreateBoardSectionOpts{Name: "Day"})
+	_, err := bc.Pin.Board.CreateBoardSection(boardID, CreateBoardSectionOpts{Name: "Day"})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -50,7 +50,7 @@ func (bc *BCSuite) TestCreateBoardSection() {
 		),
 	)
 
-	bs, _ := bc.Pin.BoardResource.CreateBoardSection(boardID, CreateBoardSectionOpts{Name: "Day"})
+	bs, _ := bc.Pin.Board.CreateBoardSection(boardID, CreateBoardSectionOpts{Name: "Day"})
 	bc.Equal(*bs.Name, "Day")
 }
 
@@ -64,7 +64,7 @@ func (bc *BCSuite) TestUpdateBoardSection() {
 			`{"code":400,"message":"Invalid board section parameters."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.UpdateBoardSection(boardID, sectionID, CreateBoardSectionOpts{Name: "DayModify"})
+	_, err := bc.Pin.Board.UpdateBoardSection(boardID, sectionID, CreateBoardSectionOpts{Name: "DayModify"})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -75,7 +75,7 @@ func (bc *BCSuite) TestUpdateBoardSection() {
 		),
 	)
 
-	bs, _ := bc.Pin.BoardResource.UpdateBoardSection(boardID, sectionID, CreateBoardSectionOpts{Name: "DayModify"})
+	bs, _ := bc.Pin.Board.UpdateBoardSection(boardID, sectionID, CreateBoardSectionOpts{Name: "DayModify"})
 	bc.Equal(*bs.Name, "DayModify")
 }
 
@@ -89,7 +89,7 @@ func (bc *BCSuite) TestDeleteBoardSection() {
 			`{"code":403,"message":"Not authorized to delete board section."}`,
 		),
 	)
-	err := bc.Pin.BoardResource.DeleteBoardSection(boardID, sectionID)
+	err := bc.Pin.Board.DeleteBoardSection(boardID, sectionID)
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -100,7 +100,7 @@ func (bc *BCSuite) TestDeleteBoardSection() {
 		),
 	)
 
-	err = bc.Pin.BoardResource.DeleteBoardSection(boardID, sectionID)
+	err = bc.Pin.Board.DeleteBoardSection(boardID, sectionID)
 	bc.Nil(err)
 }
 
@@ -114,7 +114,7 @@ func (bc *BCSuite) TestListPinsOnBoardSection() {
 			`{"code":404,"message":"Board not found."}`,
 		),
 	)
-	_, err := bc.Pin.BoardResource.ListPinsOnBoardSection(boardID, sectionID, ListOptions{})
+	_, err := bc.Pin.Board.ListPinsOnBoardSection(boardID, sectionID, ListOptions{})
 	bc.IsType(&APIError{}, err)
 
 	httpmock.RegisterResponder(
@@ -125,7 +125,7 @@ func (bc *BCSuite) TestListPinsOnBoardSection() {
 		),
 	)
 
-	boards, _ := bc.Pin.BoardResource.ListPinsOnBoardSection(boardID, sectionID, ListOptions{})
+	boards, _ := bc.Pin.Board.ListPinsOnBoardSection(boardID, sectionID, ListOptions{})
 	bc.Equal(*boards.Items[0].ID, "1022106077902203823")
 	bc.Nil(boards.Bookmark)
 }
