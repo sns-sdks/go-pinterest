@@ -62,26 +62,27 @@ type RegisterMediaUploadOpts struct {
 	MediaType string `json:"media_type"`
 }
 
-type UploadParameters struct {
-	XAmzDate          string `json:"x-amz-date"`
-	XAmzSignature     string `json:"x-amz-signature"`
-	XAmzSecurityToken string `json:"x-amz-security-token"`
-	XAmzAlgorithm     string `json:"x-amz-algorithm"`
-	Key               string `json:"key"`
-	Policy            string `json:"policy"`
-	XAmzCredential    string `json:"x-amz-credential"`
-	ContentType       string `json:"Content-Type"`
+// RegisterMediaUploadResponse The response for register media upload.
+type RegisterMediaUploadResponse struct {
+	MediaID          *string           `json:"media_id"`
+	MediaType        *string           `json:"media_type"`
+	UploadURL        *string           `json:"upload_url"`
+	UploadParameters map[string]string `json:"upload_parameters"`
 }
 
-type RegisterMediaUploadResponse struct {
-	MediaID          *string            `json:"media_id"`
-	MediaType        *string            `json:"media_type"`
-	UploadURL        *string            `json:"upload_url"`
-	UploadParameters map[string]*string `json:"upload_parameters"`
+func (m RegisterMediaUploadResponse) String() string {
+	return Stringify(m)
 }
 
 // RegisterMediaUpload Register your intent to upload media.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/media/create
-func (r *MediaResource) RegisterMediaUpload(args RegisterMediaUploadOpts) {
+func (r *MediaResource) RegisterMediaUpload(args RegisterMediaUploadOpts) (*RegisterMediaUploadResponse, *APIError) {
+	path := "/media"
 
+	resp := new(RegisterMediaUploadResponse)
+	err := r.Cli.DoPost(path, args, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
