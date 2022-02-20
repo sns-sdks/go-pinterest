@@ -76,6 +76,9 @@ func TestString(t *testing.T) {
 		{BoardsResponse{Items: []*Board{{ID: String("1022106146619699845"), Name: String("City")}}}, `pinterest.BoardsResponse{Items:[pinterest.Board{ID:"1022106146619699845", Name:"City"}]}`},
 		{BoardSection{ID: String("5215175925383086784"), Name: String("Day")}, `pinterest.BoardSection{ID:"5215175925383086784", Name:"Day"}`},
 		{BoardSectionsResponse{Items: []*BoardSection{{ID: String("5215175925383086784"), Name: String("Day")}}}, `pinterest.BoardSectionsResponse{Items:[pinterest.BoardSection{ID:"5215175925383086784", Name:"Day"}]}`},
+		{MediaUpload{MediaID: String("5216393791692388749"), MediaType: String("video")}, `pinterest.MediaUpload{MediaID:"5216393791692388749", MediaType:"video"}`},
+		{MediaUploadsResponse{Items: []*MediaUpload{{MediaID: String("5216393791692388749")}}}, `pinterest.MediaUploadsResponse{Items:[pinterest.MediaUpload{MediaID:"5216393791692388749"}]}`},
+		{RegisterMediaUploadResponse{MediaID: String("5216393791692388749"), UploadURL: String("https://p.com")}, `pinterest.RegisterMediaUploadResponse{MediaID:"5216393791692388749", UploadURL:"https://p.com"}`},
 	}
 
 	for i, tt := range tests {
