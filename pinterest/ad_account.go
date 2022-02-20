@@ -23,10 +23,18 @@ type AdAccount struct {
 	Currency *string         `json:"currency"`
 }
 
+func (a AdAccount) String() string {
+	return Stringify(a)
+}
+
 // AdAccountsResponse represents the response for list ad accounts.
 type AdAccountsResponse struct {
 	Items    []*AdAccount `json:"items"`
 	Bookmark *string      `json:"bookmark"`
+}
+
+func (ar AdAccountsResponse) String() string {
+	return Stringify(ar)
 }
 
 // ListAdAccountsOptions represents the parameters for list ad accounts.
