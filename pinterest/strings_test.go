@@ -76,6 +76,8 @@ func TestString(t *testing.T) {
 		{BoardsResponse{Items: []*Board{{ID: String("1022106146619699845"), Name: String("City")}}}, `pinterest.BoardsResponse{Items:[pinterest.Board{ID:"1022106146619699845", Name:"City"}]}`},
 		{BoardSection{ID: String("5215175925383086784"), Name: String("Day")}, `pinterest.BoardSection{ID:"5215175925383086784", Name:"Day"}`},
 		{BoardSectionsResponse{Items: []*BoardSection{{ID: String("5215175925383086784"), Name: String("Day")}}}, `pinterest.BoardSectionsResponse{Items:[pinterest.BoardSection{ID:"5215175925383086784", Name:"Day"}]}`},
+		{Pin{ID: String("1022106077902810180"), CreatedAt: String("2022-02-14T02:54:38")}, `pinterest.Pin{ID:"1022106077902810180", CreatedAt:"2022-02-14T02:54:38"}`},
+		{PinsResponse{Items: []*Pin{{ID: String("1022106077902810180"), CreatedAt: String("2022-02-14T02:54:38")}}}, `pinterest.PinsResponse{Items:[pinterest.Pin{ID:"1022106077902810180", CreatedAt:"2022-02-14T02:54:38"}]}`},
 		{Media{MediaType: String("image")}, `pinterest.Media{MediaType:"image"}`},
 		{Image{Width: Int(10)}, `pinterest.Image{Width:10}`},
 		{MediaUpload{MediaID: String("5216393791692388749"), MediaType: String("video")}, `pinterest.MediaUpload{MediaID:"5216393791692388749", MediaType:"video"}`},
