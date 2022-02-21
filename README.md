@@ -15,7 +15,19 @@ require github.com/sns-sdks/go-pinterest
 
 ## Usage
 
-More usage See the [`Example`](https://github.com/sns-sdks/go-pinterest/blob/main/example)
+### Authentication
+
+You can initial the client with access token.
+
+```go
+client := pinterest.NewBearerClient("Your bearer token")
+u, err := client.UserAccount.GetUserAccount("")
+fmt.Println(u, err)
+```
+
+Or you can give oauth flow by hand, You can follow the [`authorize example`](https://github.com/sns-sdks/go-pinterest/blob/main/example/authentication/main.go) 
+
+More usage detail see the [`Example`](https://github.com/sns-sdks/go-pinterest/blob/main/example)
 
 ## Features
 
@@ -23,3 +35,5 @@ More usage See the [`Example`](https://github.com/sns-sdks/go-pinterest/blob/mai
 - UserAccount
 - Boards
 - Pins
+- Media
+- AdAccounts
