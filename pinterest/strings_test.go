@@ -83,6 +83,15 @@ func TestString(t *testing.T) {
 		{MediaUpload{MediaID: String("5216393791692388749"), MediaType: String("video")}, `pinterest.MediaUpload{MediaID:"5216393791692388749", MediaType:"video"}`},
 		{MediaUploadsResponse{Items: []*MediaUpload{{MediaID: String("5216393791692388749")}}}, `pinterest.MediaUploadsResponse{Items:[pinterest.MediaUpload{MediaID:"5216393791692388749"}]}`},
 		{RegisterMediaUploadResponse{MediaID: String("5216393791692388749"), UploadURL: String("https://p.com")}, `pinterest.RegisterMediaUploadResponse{MediaID:"5216393791692388749", UploadURL:"https://p.com"}`},
+		{Ad{ID: String("687195134316"), Type: String("pinpromotion")}, `pinterest.Ad{ID:"687195134316", Type:"pinpromotion"}`},
+		{AdsResponse{Items: []*Ad{{ID: String("687195134316"), IsRemovable: Bool(false)}}}, `pinterest.AdsResponse{Items:[pinterest.Ad{ID:"687195134316", IsRemovable:false}]}`},
+		{AdAccount{ID: String("549763740754"), Name: String("SNS-SDKS")}, `pinterest.AdAccount{ID:"549763740754", Name:"SNS-SDKS"}`},
+		{AdAccountsResponse{Items: []*AdAccount{{ID: String("549763740754")}}}, `pinterest.AdAccountsResponse{Items:[pinterest.AdAccount{ID:"549763740754"}]}`},
+		{Campaign{ID: String("549755885175")}, `pinterest.Campaign{ID:"549755885175"}`},
+		{CampaignsResponse{Items: []*Campaign{{ID: String("549755885175")}}}, `pinterest.CampaignsResponse{Items:[pinterest.Campaign{ID:"549755885175"}]}`},
+		{TrackingURLs{Impression: []*string{String("URL1")}}, `pinterest.TrackingURLs{Impression:["URL1"]}`},
+		{AdGroup{ID: String("2680060704746")}, `pinterest.AdGroup{ID:"2680060704746"}`},
+		{AdGroupsResponse{Items: []*AdGroup{{ID: String("2680060704746")}}}, `pinterest.AdGroupsResponse{Items:[pinterest.AdGroup{ID:"2680060704746"}]}`},
 	}
 
 	for i, tt := range tests {

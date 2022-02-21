@@ -35,13 +35,13 @@ func (a Ad) String() string {
 	return Stringify(a)
 }
 
-// ListAdsResponse represents the response for list ads.
-type ListAdsResponse struct {
+// AdsResponse represents the response for list ads.
+type AdsResponse struct {
 	Items    []*Ad   `json:"items"`
 	Bookmark *string `json:"bookmark"`
 }
 
-func (a ListAdsResponse) String() string {
+func (a AdsResponse) String() string {
 	return Stringify(a)
 }
 
@@ -58,10 +58,10 @@ type ListAdsOpts struct {
 
 // ListAds Get a list of the ads in the specified ad_account_id, filtered by the specified options.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/ads/list
-func (r *AdAccountResource) ListAds(adAccountID string, args ListAdsOpts) (*ListAdsResponse, *APIError) {
+func (r *AdAccountResource) ListAds(adAccountID string, args ListAdsOpts) (*AdsResponse, *APIError) {
 	path := "/ad_accounts/" + adAccountID + "/ads"
 
-	resp := new(ListAdsResponse)
+	resp := new(AdsResponse)
 	err := r.Cli.DoGet(path, args, resp)
 	if err != nil {
 		return nil, err
@@ -82,13 +82,16 @@ type GetAdAnalyticsOpts struct {
 	ConversionReportTime string   `url:"conversion_report_time,omitempty"`
 }
 
+// AnalyticsResponse represents the analytics response.
+type AnalyticsResponse []map[string]interface{}
+
 // GetAdAnalytics Get analytics for the specified ads in the specified ad_account_id, filtered by the specified options.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/ads/analytics
-func (r *AdAccountResource) GetAdAnalytics(adAccountID string, args GetAdAnalyticsOpts) ([]map[string]string, *APIError) {
+func (r *AdAccountResource) GetAdAnalytics(adAccountID string, args GetAdAnalyticsOpts) (AnalyticsResponse, *APIError) {
 	path := "/ad_accounts/" + adAccountID + "/ads/analytics"
 
-	var resp []map[string]string
-	err := r.Cli.DoGet(path, args, resp)
+	var resp AnalyticsResponse
+	err := r.Cli.DoGet(path, args, &resp)
 	if err != nil {
 		return nil, err
 	}
@@ -110,11 +113,11 @@ type GetProductGroupAnalyticsOpts struct {
 
 // GetProductGroupAnalytics Get analytics for the specified product groups in the specified ad_account_id, filtered by the specified options.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/product_groups/analytics
-func (r *AdAccountResource) GetProductGroupAnalytics(adAccountID string, args GetAdAnalyticsOpts) ([]map[string]string, *APIError) {
+func (r *AdAccountResource) GetProductGroupAnalytics(adAccountID string, args GetProductGroupAnalyticsOpts) (AnalyticsResponse, *APIError) {
 	path := "/ad_accounts/" + adAccountID + "/product_groups/analytics"
 
-	var resp []map[string]string
-	err := r.Cli.DoGet(path, args, resp)
+	var resp AnalyticsResponse
+	err := r.Cli.DoGet(path, args, &resp)
 	if err != nil {
 		return nil, err
 	}

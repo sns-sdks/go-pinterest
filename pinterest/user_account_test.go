@@ -16,6 +16,7 @@ func (bc *BCSuite) TestGetUserAccount() {
 	)
 	_, err := bc.Pin.UserAccount.GetUserAccount("")
 	bc.IsType(&APIError{}, err)
+	bc.Contains(err.Error(), "403")
 
 	httpmock.RegisterResponder(
 		HttpGet, Baseurl+"/user_account",

@@ -35,13 +35,13 @@ func (c Campaign) String() string {
 	return Stringify(c)
 }
 
-// ListCampaignsResponse represents the response for list campaigns.
-type ListCampaignsResponse struct {
+// CampaignsResponse represents the response for list campaigns.
+type CampaignsResponse struct {
 	Items    []*Campaign `json:"items"`
 	Bookmark *string     `json:"bookmark"`
 }
 
-func (c ListCampaignsResponse) String() string {
+func (c CampaignsResponse) String() string {
 	return Stringify(c)
 }
 
@@ -55,10 +55,10 @@ type ListCampaignsOpts struct {
 
 // ListCampaigns Get a list of the campaigns in the specified ad_account_id, filtered by the specified options.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/campaigns/list
-func (r *AdAccountResource) ListCampaigns(adAccountID string, args ListCampaignsOpts) (*ListCampaignsResponse, *APIError) {
+func (r *AdAccountResource) ListCampaigns(adAccountID string, args ListCampaignsOpts) (*CampaignsResponse, *APIError) {
 	path := "/ad_accounts/" + adAccountID + "/campaigns"
 
-	resp := new(ListCampaignsResponse)
+	resp := new(CampaignsResponse)
 	err := r.Cli.DoGet(path, args, resp)
 	if err != nil {
 		return nil, err
@@ -81,11 +81,11 @@ type GetCampaignAnalyticsOpts struct {
 
 // GetCampaignAnalytics Get analytics for the specified campaigns in the specified ad_account_id, filtered by the specified options.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/campaigns/analytics
-func (r *AdAccountResource) GetCampaignAnalytics(adAccountID string, args GetCampaignAnalyticsOpts) ([]map[string]string, *APIError) {
+func (r *AdAccountResource) GetCampaignAnalytics(adAccountID string, args GetCampaignAnalyticsOpts) (AnalyticsResponse, *APIError) {
 	path := "/ad_accounts/" + adAccountID + "/campaigns/analytics"
 
-	var resp []map[string]string
-	err := r.Cli.DoGet(path, args, resp)
+	var resp AnalyticsResponse
+	err := r.Cli.DoGet(path, args, &resp)
 	if err != nil {
 		return nil, err
 	}

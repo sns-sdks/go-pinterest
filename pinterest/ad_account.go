@@ -37,15 +37,15 @@ func (ar AdAccountsResponse) String() string {
 	return Stringify(ar)
 }
 
-// ListAdAccountsOptions represents the parameters for list ad accounts.
-type ListAdAccountsOptions struct {
+// ListAdAccountsOpts represents the parameters for list ad accounts.
+type ListAdAccountsOpts struct {
 	IncludeSharedAccounts bool `url:"include_shared_accounts,omitempty"`
 	ListOptions
 }
 
 // ListAdAccounts Get a list of the ad_accounts that the "operation user_account" has access to.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/ad_accounts/list
-func (r *AdAccountResource) ListAdAccounts(args ListAdAccountsOptions) (*AdAccountsResponse, *APIError) {
+func (r *AdAccountResource) ListAdAccounts(args ListAdAccountsOpts) (*AdAccountsResponse, *APIError) {
 	path := "/ad_accounts"
 
 	resp := new(AdAccountsResponse)
@@ -70,11 +70,11 @@ type GetAdAccountAnalyticsOpts struct {
 
 // GetAdAccountAnalytics Get analytics for the specified ad_account_id, filtered by the specified options.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/ad_account/analytics
-func (r *AdAccountResource) GetAdAccountAnalytics(adAccountID string, args GetAdAccountAnalyticsOpts) ([]map[string]string, *APIError) {
+func (r *AdAccountResource) GetAdAccountAnalytics(adAccountID string, args GetAdAccountAnalyticsOpts) (AnalyticsResponse, *APIError) {
 	path := "/ad_accounts/" + adAccountID + "/analytics"
 
-	var resp []map[string]string
-	err := r.Cli.DoGet(path, args, resp)
+	var resp AnalyticsResponse
+	err := r.Cli.DoGet(path, args, &resp)
 	if err != nil {
 		return nil, err
 	}
