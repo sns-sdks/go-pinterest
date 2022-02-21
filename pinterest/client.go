@@ -22,6 +22,7 @@ type Client struct {
 	Board       *BoardResource
 	Pin         *PinResource
 	Media       *MediaResource
+	AdAccount   *AdAccountResource
 }
 
 type Resource struct {
@@ -36,6 +37,7 @@ func NewClient(client *resty.Client) *Client {
 	c.Board = newBoardResource(c)
 	c.Pin = newPinResource(c)
 	c.Media = newMediaResource(c)
+	c.AdAccount = newAdAccountResource(c)
 	return c
 }
 
